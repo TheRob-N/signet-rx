@@ -1,5 +1,5 @@
 [Unit]
-Description=SIGNET-RX backend (v1-alpha)
+Description=SIGNET-RX backend (v1-beta)
 After=network.target
 
 [Service]

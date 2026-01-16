@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>SIGNET-RX v1-alpha</title>
+  <title>SIGNET-RX v1-beta</title>
   <link rel="stylesheet" href="/static/style.css"/>
 </head>
 <body>
@@ -25,6 +25,20 @@
         <div class="row">
           <div class="label">CH/FREQ</div>
           <div class="value" id="wxFreq">162.550 MHz</div>
+          <div class="rxline-right">
+            <div class="smeter" aria-label="Weather signal strength">
+              <div class="smeter-scale">
+                <span>S1</span><span>S3</span><span>S5</span><span>S7</span><span>S9</span><span>+10</span><span>+20</span><span>+30</span>
+              </div>
+              <div class="smeter-bar"><div class="smeter-fill" id="wxSMeterFill"></div><div class="smeter-peak" id="wxSMeterPeak"></div></div>
+            </div>
+            <div class="rxmeta">
+              <span class="bw">BW: <span id="wxBw">25</span> kHz</span>
+              <span class="modstack" id="wxMod">
+                <span class="on">NFM</span><span>WFM</span><span>AM</span><span>SSB</span>
+              </span>
+            </div>
+          </div>
           <div class="spacer"></div>
           <div class="label">STATUS</div>
           <div class="value" id="wxStatus">MONITORING</div>
@@ -36,16 +50,33 @@
         </div>
       </section>
 
-      <section class="block clickable" id="fmBlock" title="Tap for FM/RDS details">
-        <div class="block-title">FM BROADCAST</div>
+      <section class="block clickable" id="rxBlock" title="Tap for receiver details">
+        <div class="block-title">WIDEBAND RECEIVER</div>
         <div class="row">
           <div class="label">FREQ</div>
-          <div class="value" id="fmFreq">89.3 MHz</div>
+          <div class="value" id="rxFreq">89.3 MHz</div>
+          <div class="rxline-right">
+            <div class="smeter" aria-label="Receiver signal strength">
+              <div class="smeter-scale">
+                <span>S1</span><span>S3</span><span>S5</span><span>S7</span><span>S9</span><span>+10</span><span>+20</span><span>+30</span>
+              </div>
+              <div class="smeter-bar"><div class="smeter-fill" id="rxSMeterFill"></div><div class="smeter-peak" id="rxSMeterPeak"></div></div>
+            </div>
+            <div class="rxmeta">
+              <span class="bw">BW: <span id="rxBw">200</span> kHz</span>
+              <span class="modstack" id="rxMod">
+                <span class="on">WFM</span><span>NFM</span><span>AM</span><span>SSB</span>
+              </span>
+            </div>
+          </div>
           <div class="spacer"></div>
           <div class="label">MODE</div>
-          <div class="value" id="mode">FM + WX</div>
+          <div class="value" id="mode">WB + WX</div>
         </div>
         <div class="row">
+          <div class="label">RX</div>
+          <div class="value" id="rxMode">WFM BROADCAST</div>
+          <div class="spacer"></div>
           <div class="label">STATION</div>
           <div class="value" id="rdsStation">WQED-FM</div>
         </div>
@@ -56,8 +87,28 @@
       </section>
 
       <section class="block" id="vizBlock">
-        <div class="block-title">SPECTRUM ANALYZER</div>
+        <div class="block-title" id="vizTitle">SPECTRUM ANALYZER</div>
         <canvas id="spectrum" width="800" height="170"></canvas>
+        <div id="rxControls" class="hidden">
+          <div class="row">
+            <div class="label">STEP</div><div class="value" id="rxStep">12.5 kHz</div>
+            <div class="spacer"></div>
+            <div class="label">SQL</div><div class="value" id="rxSql">5</div>
+            <div class="spacer"></div>
+            <div class="label">PROFILE</div><div class="value" id="rxProfile">MANUAL RX</div>
+          </div>
+          <div class="row">
+            <button class="btn small" id="btnWfm">WFM</button>
+            <button class="btn small" id="btnNfm">NFM</button>
+            <button class="btn small" id="btnAm">AM</button>
+            <button class="btn small" id="btnSsb">SSB</button>
+            <div class="spacer"></div>
+            <button class="btn small" id="btnMem">MEM</button>
+            <button class="btn small" id="btnScan" disabled>SCAN</button>
+            <button class="btn small" id="btnHold" disabled>HOLD</button>
+          </div>
+          <div class="hint">Spectrum bars are shown in WFM Broadcast mode. Manual RX will use this area for tuning and scanner controls.</div>
+        </div>
       </section>
     </main>
 

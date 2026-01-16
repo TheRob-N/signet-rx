@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# SIGNET-RX v1-alpha installer
+# SIGNET-RX v1-beta installer
 # Target: Raspberry Pi OS (Bookworm) recommended
 
 if [[ ${EUID:-1000} -ne 0 ]]; then
@@ -15,7 +15,7 @@ ENV_FILE="${ENV_DIR}/signet-rx.env"
 APP_DIR="/opt/signet-rx/app"
 VENV_DIR="/opt/signet-rx/venv"
 
-echo "== SIGNET-RX v1-alpha installer =="
+echo "== SIGNET-RX v1-beta installer =="
 
 echo "[1/6] Installing OS packages"
 apt update
@@ -57,10 +57,6 @@ systemctl enable --now signet-rx.service
 systemctl enable --now signet-rx-kiosk.service || true
 
 echo "[6/6] Done"
-echo "  UI: http://raspberrypi.local:8088"
+echo "  Web UI: http://raspberrypi.local:${HTTP_PORT:-8088}"
 echo "  Config: ${ENV_FILE}"
-
-echo "[6/6] Done"
-echo "Web UI: http://raspberrypi.local:${HTTP_PORT:-8088}"
-echo "Config: ${ENV_FILE}"
-echo "Logs:   journalctl -u signet-rx -f"
+echo "  Logs:   journalctl -u signet-rx -f"
