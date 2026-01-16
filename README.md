@@ -1,7 +1,7 @@
 # SIGNET-RX
 
 <p align="center">
-  <img src="docs/screenshots/signet-rx-logo.png" alt="SIGNET-RX Logo" width="480">
+  <img src="docs/screenshots/signet-rx-logo-80s-dark-nobg.png" alt="SIGNET-RX Logo" width="480">
 </p>
 
 **Signal Intelligence Receiver & Alert Console**
