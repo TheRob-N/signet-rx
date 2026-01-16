@@ -8,7 +8,7 @@
 
 ---
 
-## ⚠️ Alpha Status Notice
+## ⚠️ Beta Status Notice
 
 > **SIGNET-RX is currently in very early development (v1-beta).**  
 > Expect incomplete features, breaking changes, and rough edges.  
