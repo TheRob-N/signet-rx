@@ -1,97 +1,129 @@
-# SIGNET-RX (v1-beta)
+# SIGNET-RX
 
-⚠️ Very early beta: SIGNET-RX is still under active development; features may be incomplete and subject to change.
+<p align="center">
+  <img src="docs/screenshots/signet-rx-logo.png" alt="SIGNET-RX Logo" width="480">
+</p>
 
-![SIGNET-RX logo](docs/screenshots/signet-rx-logo-80s-dark-nobg.png)
+**Signal Intelligence Receiver & Alert Console**
 
-**Signal Intelligence Receiver & Broadcast Console**
+---
 
-SIGNET-RX turns a Raspberry Pi into a retro hi-fi style wideband receiver + NOAA SAME console with a live spectrum display (WFM Broadcast), alert override, and a web dashboard.
+## ⚠️ Alpha Status Notice
 
-![SIGNET-RX UI render](docs/screenshots/ui-render-v1-alpha.png)
+> **SIGNET-RX is currently in very early development (v1-beta).**  
+> Expect incomplete features, breaking changes, and rough edges.  
+> The architecture, UI direction, and core workflows are actively evolving.
 
-## Features
+---
 
-- **Wideband Receiver (WB RX)**
-  - **WFM Broadcast** (true stereo planned) + **RDS** (station name + radio text)
-  - **Manual RX** profile (planned): NFM/AM/SSB tuning controls (scanner features later)
-- **NOAA Weather Radio (WX)** monitoring with **SAME** decoding
-- Listening modes:
-  - **WB + WX**: Wideband Receiver plays; NOAA overrides audio on alert
-  - **WX LIVE**: continuous NOAA audio
-  - **WX ALERT**: silent until an alert (then plays NOAA)
-  - **SAME ONLY**: visual alerts only
-- Dual display:
-  - **HyperPixel 4.0** touch UI (primary)
-  - **HDMI** UI (mirror or extended)
-- Audio outputs:
-  - Analog 3.5mm
-  - HDMI audio
-  - Bluetooth speaker (PipeWire)
-- Retro hi-fi analyzer UI with a live audio spectrum (WFM Broadcast) and scrolling text
-- HDMI idle visualization (Winamp-inspired)
+## Overview
 
-## Recommended hardware
+**SIGNET-RX** is a Raspberry Pi–based **wideband receiver and NOAA weather alert console** with a retro 80s/90s hi-fi aesthetic.
 
-- Raspberry Pi 4 (2GB+; 4GB recommended)
-- HyperPixel 4.0 (touch)
-- 2x RTL-SDR (one for FM/RDS, one for NOAA SAME)
-- FM antenna + VHF (162 MHz) antenna
-- Optional: powered USB hub (recommended if running 2 dongles)
-- SMA Y Splitter Cable (if running 2 dongles w/ 1 antenna)
+It combines:
+- A **Wideband Receiver (WB RX)** for analog radio monitoring
+- **NOAA Weather Radio** with SAME alert decoding
+- Automatic **alert audio override**
+- Touch and HDMI-based visual interfaces
+- Multi-output audio (analog, HDMI, Bluetooth)
 
-## Status
+SIGNET-RX is designed to behave like a real piece of radio equipment — not just a software demo.
 
-This repository is a **v1-beta scaffold** meant to get you building on real hardware:
-- UI updated for **WB RX + WX** layout (S-meter bar, bandwidth, modulation stack)
-- Demo spectrum animation (no SDR required)
-- Backend service that serves the UI and a demo event stream
-- Installer + systemd units (placeholders)
+<p align="center">
+  <img src="docs/screenshots/ui-render-v1-alpha.png" alt="SIGNET-RX UI Render" width="800">
+</p>
 
-The SDR decode pipelines are stubbed for now and will be wired up to:
-- **WFM stereo + RDS** (GNU Radio flowgraph or equivalent)
-- **WX audio + SAME** (`rtl_fm` + `multimon-ng`)
+---
 
-## Quick start (dev/demo)
+## What SIGNET-RX Does
 
-On any Linux machine (including a Pi):
+### 📡 Wideband Receiver (WB RX)
+- **WFM Broadcast** (FM stereo + RDS)
+- **NFM** (scanner-style analog reception)
+- **AM** (airband, utilities)
+- **SSB** (planned)
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m signet_rx
-```
+### 🚨 NOAA Weather Radio
+- Continuous monitoring of NOAA Weather Radio
+- SAME (Specific Area Message Encoding) decoding
+- Alert metadata extraction and display
 
-Then open:
-- http://localhost:8088
+### 🔁 Alert Override
+- Wideband Receiver audio is automatically interrupted by NOAA alerts
+- Live NOAA audio is played during active alerts
+- Audio resumes automatically when alerts expire
 
-## Install on Raspberry Pi (planned)
+### 🖥️ Displays
+- **HyperPixel 4.0** touchscreen (primary “front panel”)
+- **HDMI output**
+  - Mirrored UI or extended visualization mode
+  - Screensaver-style visualizations when idle
 
-```bash
-sudo ./installer/install.sh
-```
+### 🔊 Audio Outputs
+- 3.5mm analog audio
+- HDMI audio
+- Bluetooth speakers
 
-After install:
-- Web UI: http://raspberrypi.local:8088
-- Services: `signet-rx.service` and `signet-rx-kiosk.service`
+Audio outputs are fully abstracted and selectable at runtime.
 
-## Configuration
+---
 
-Copy the example config and edit to taste:
+## Listening Modes
 
-```bash
-sudo mkdir -p /etc/signet-rx
-sudo cp config/signet-rx.example.env /etc/signet-rx/signet-rx.env
-sudo nano /etc/signet-rx/signet-rx.env
-```
+| Mode | Audio | NOAA | WB RX | Behavior |
+|-----|------|------|------|---------|
+| WX LIVE | NOAA | ✅ | ❌ | Continuous NOAA audio |
+| WX ALERT | Silent → NOAA | ✅ | ❌ | Audio only during alerts |
+| WB RX + WX | WB RX → NOAA | ✅ | ✅ | Receiver audio overridden by alerts |
+| SAME ONLY | Silent | ✅ | ❌ | Visual alerts only |
 
-Restart:
+---
 
-```bash
-sudo systemctl restart signet-rx
-```
+## User Interface & Visual Design
+
+- Retro **hi-fi receiver** aesthetic inspired by 80s/90s stereo equipment
+- **Classic ham-style S-meter** (S1–S9 + dB)
+- Bandwidth (kHz) display per receiver
+- Modulation stack indicators (WFM / NFM / AM / SSB)
+- FM stereo and RDS indicators
+- Hi-fi spectrum analyzer shown **only in WFM Broadcast mode**
+- Manual RX modes reclaim screen space for receiver controls
+
+Touch any section to expand detailed views.
+
+---
+
+## Hardware (Recommended)
+
+- Raspberry Pi 4 (4GB recommended)
+- 2× RTL-SDR devices (WB RX + NOAA simultaneously)
+- HyperPixel 4.0 touchscreen
+- HDMI display (optional)
+- VHF antenna (162 MHz) + wideband antenna
+- Speakers (analog, HDMI, or Bluetooth)
+- Reliable power supply (powered USB hub recommended)
+
+---
+
+## Project Status
+
+- RF pipelines are **under active development**
+- UI and state machine are functional but evolving
+- Scanner-style features and RadioReference integration are **future goals**
+- Encrypted digital public-safety systems are **out of scope**
+
+See `CHANGELOG.md` for version history.
+
+---
 
 ## License
 
-MIT (recommended for maker projects). See `LICENSE`.
+This project is released under the MIT License.
+
+---
+
+## Disclaimer
+
+This project is intended for **receiving and monitoring** radio signals only.
+Users are responsible for complying with all local laws and regulations.
+Encrypted or restricted communications cannot and will not be decoded.
