@@ -2,7 +2,7 @@
 
 ⚠️ Very Alpha: SIGNET-RX is in early development; features are incomplete and subject to change.
 
-![SIGNET-RX logo](docs/screenshots/signet-rx-logo-80s-dark.png)
+![SIGNET-RX logo](docs/screenshots/signet-rx-logo-80s-dark-nobg.png)
 
 **Signal Intelligence Receiver & Broadcast Console**
 
