@@ -36,7 +36,7 @@ SIGNET-RX turns a Raspberry Pi into a retro hi-fi style FM + NOAA SAME console w
 - 2x RTL-SDR (one for FM/RDS, one for NOAA SAME)
 - FM antenna + VHF (162 MHz) antenna
 - Optional: powered USB hub (recommended if running 2 dongles)
-- SMA Y Splitter Cable (if running 2 dongles)
+- SMA Y Splitter Cable (if running 2 dongles w/ 1 antenna)
 
 ## Status
 
