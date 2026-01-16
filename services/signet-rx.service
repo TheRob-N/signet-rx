@@ -1,0 +1,14 @@
+[Unit]
+Description=SIGNET-RX backend (v1-alpha)
+After=network.target
+
+[Service]
+Type=simple
+Environment=SIGNET_RX_ENV=/etc/signet-rx/signet-rx.env
+WorkingDirectory=/opt/signet-rx/app
+ExecStart=/opt/signet-rx/venv/bin/python -m signet_rx
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

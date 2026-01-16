@@ -1,0 +1,14 @@
+[Unit]
+Description=SIGNET-RX kiosk UI (Chromium)
+After=signet-rx.service graphical.target
+Wants=signet-rx.service
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/opt/signet-rx/app/ui/kiosk/chromium-kiosk.sh http://localhost:8088
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

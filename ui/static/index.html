@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SIGNET-RX v1-alpha</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div id="frame">
+    <header id="topbar">
+      <div id="clock">--:--:--</div>
+      <div id="date">---</div>
+      <div id="indicators">
+        <span class="led" id="led-stereo">STEREO</span>
+        <span class="led" id="led-rds">RDS</span>
+        <span class="led" id="led-wx">WX</span>
+        <span class="led" id="led-alert">ALERT</span>
+      </div>
+    </header>
+
+    <main id="panel">
+      <section class="block clickable" id="wxBlock" title="Tap for alert details">
+        <div class="block-title">WEATHER (WX)</div>
+        <div class="row">
+          <div class="label">CH/FREQ</div>
+          <div class="value" id="wxFreq">162.550 MHz</div>
+          <div class="spacer"></div>
+          <div class="label">STATUS</div>
+          <div class="value" id="wxStatus">MONITORING</div>
+        </div>
+        <div class="row">
+          <div class="label">LAST ALERT</div>
+          <div class="value marquee" id="wxLast">None</div>
+          <div class="value" id="wxLastTime"></div>
+        </div>
+      </section>
+
+      <section class="block clickable" id="fmBlock" title="Tap for FM/RDS details">
+        <div class="block-title">FM BROADCAST</div>
+        <div class="row">
+          <div class="label">FREQ</div>
+          <div class="value" id="fmFreq">89.3 MHz</div>
+          <div class="spacer"></div>
+          <div class="label">MODE</div>
+          <div class="value" id="mode">FM + WX</div>
+        </div>
+        <div class="row">
+          <div class="label">STATION</div>
+          <div class="value" id="rdsStation">WQED-FM</div>
+        </div>
+        <div class="row">
+          <div class="label">RDS</div>
+          <div class="value marquee" id="rdsText">Classical music for Pittsburgh</div>
+        </div>
+      </section>
+
+      <section class="block" id="vizBlock">
+        <div class="block-title">SPECTRUM ANALYZER</div>
+        <canvas id="spectrum" width="800" height="170"></canvas>
+      </section>
+    </main>
+
+    <footer id="bottombar">
+      <div id="volWrap">
+        <span class="label">VOL</span>
+        <div id="volBar"><div id="volFill"></div></div>
+        <span id="volText">60%</span>
+      </div>
+      <div id="outWrap">
+        <span class="label">OUT</span>
+        <span class="value" id="out">HDMI</span>
+      </div>
+      <button id="settingsBtn" class="btn">SETTINGS</button>
+    </footer>
+  </div>
+
+  <!-- Details modal -->
+  <div id="modal" class="hidden">
+    <div id="modalCard">
+      <div id="modalHeader">
+        <div id="modalTitle">Details</div>
+        <button id="closeModal" class="btn">CLOSE</button>
+      </div>
+      <div id="modalBody" class="mono"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
